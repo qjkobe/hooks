@@ -40,8 +40,8 @@
       <file leaf-file-name="HomeRobot.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hooks/src/HomeRobot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.53243846">
-              <caret line="96" column="18" selection-start-line="96" selection-start-column="18" selection-end-line="96" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.6800895">
+              <caret line="174" column="44" selection-start-line="174" selection-start-column="44" selection-end-line="174" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -658,12 +658,12 @@
       <workItem from="1569937697318" duration="4555000" />
       <workItem from="1569943308555" duration="4481000" />
       <workItem from="1570249835584" duration="6587000" />
-      <workItem from="1570709350399" duration="1578000" />
+      <workItem from="1570709350399" duration="1657000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43689000" />
+    <option name="totallyTimeSpent" value="43768000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
@@ -671,6 +671,7 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32826087" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -691,7 +692,6 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24418604" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32826087" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -1011,8 +1011,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hooks/src/HomeRobot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53243846">
-          <caret line="96" column="18" selection-start-line="96" selection-start-column="18" selection-end-line="96" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.6800895">
+          <caret line="174" column="44" selection-start-line="174" selection-start-column="44" selection-end-line="174" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
