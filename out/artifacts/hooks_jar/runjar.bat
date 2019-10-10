@@ -1,2 +1,2 @@
-java -jar C:\Users\admin\Desktop\hooks\out\artifacts\hooks_jar/hooks.jar
+java -jar C:\Users\qjkobe\Desktop\hooks\out\artifacts\hooks_jar/hooks.jar
 pause

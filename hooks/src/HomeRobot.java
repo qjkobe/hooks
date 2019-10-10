@@ -1,10 +1,49 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class HomeRobot {
+
+public class HomeRobot extends JFrame {
+
+    private final Object lock = new Object();
+
+    private boolean pause = false;
+
+    /**
+     * 调用该方法实现线程的暂停
+     */
+    void pauseThread() {
+        pause = true;
+    }
+
+
+    /**
+     * 调用该方法实现恢复线程的运行
+     */
+    void resumeThread() {
+        pause = false;
+        synchronized (lock) {
+            lock.notify();
+        }
+    }
+
+    /**
+     * 这个方法只能在run 方法中实现，不然会阻塞主线程，导致页面无响应
+     */
+    void onPause() {
+        synchronized (lock) {
+            try {
+                lock.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static void mouseMove(Robot robot, int x, int y) {
         robot.mouseMove(x, y);
     }
@@ -33,6 +72,10 @@ public class HomeRobot {
         Robot robot = new Robot();
         robot.delay(3000);
         while (true) {
+            while (pause) {
+                onPause();
+            }
+            robot.delay(1000);
             int comeFlag = 0;
             //防止公告
             mouseMove(robot, 944, 127);
@@ -51,13 +94,15 @@ public class HomeRobot {
                 Color blue = new Color(Integer.parseInt(p.getProperty("Blue1")), Integer.parseInt(p.getProperty("Blue2")), Integer.parseInt(p.getProperty("Blue3")));
                 Color purple = new Color(Integer.parseInt(p.getProperty("Purple1")), Integer.parseInt(p.getProperty("Purple2")), Integer.parseInt(p.getProperty("Purple3")));
                 Color orange = new Color(Integer.parseInt(p.getProperty("Orange1")), Integer.parseInt(p.getProperty("Orange2")), Integer.parseInt(p.getProperty("Orange3")));
-                if (pixel.equals(blue) || pixel.equals(purple) || pixel.equals(orange)) {
+                if (pixel.equals(blue) || pixel.equals(purple)) {
+                    //注意如果只有橙色，那么不需要重新登陆，直接拉完橙色
                     comeFlag = 1;//火车来过了。
                 }
                 if (!pixel.equals(orange)) {
                     continue;
                 }
-                for (int k = 0; k < 4; k++) {
+                //橙色其实最多只来3个
+                for (int k = 0; k < 3; k++) {
                     for (int j = 0; j < 9; j++) {
                         int temp = j + 1;
                         if (temp != 2 && temp != 3 && temp != 5 && temp != 6 && temp != 9) {
@@ -78,21 +123,25 @@ public class HomeRobot {
                         releaseMouse(robot);
                         //如果没成功，必须等那个东西回来。这里需要一会
                         robot.delay(300);
+
+                        while (pause) {
+                            onPause();
+                        }
                     }
 //                    robot.delay(2000);
                 }
             }
             //5s收一次
-            robot.delay(5000);
+            robot.delay(3000);
             //如果火车来了，并且循环结束，那就退出登录然后重新登录
-            if(comeFlag == 1) {
+            if (comeFlag == 1) {
                 mouseMove(robot, 678, 83);
                 robot.delay(100);
                 mousePress(robot);
                 mouseMove(robot, 805, 784);
                 robot.delay(100);
                 mousePress(robot);
-                robot.delay(5000);
+                robot.delay(3000);
                 mouseMove(robot, Integer.parseInt(p.getProperty("LoginX")), Integer.parseInt(p.getProperty("LoginY")));
                 robot.delay(100);
                 mousePress(robot);
@@ -100,12 +149,31 @@ public class HomeRobot {
         }
     }
 
-    public static void main(String[] args) {
-        HomeRobot a = new HomeRobot();
-        try {
-            a.collectCoins();
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void stopKeyPressed(KeyEvent e) {
+        if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_C) {//同时按下ctrl+c
         }
+
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Ctrl+C:暂停");
+        System.out.println("Ctrl+Z:继续");
+        System.out.println("Ctrl+I:关闭");
+        HomeRobot a = new HomeRobot();
+        Runnable runner = () -> {
+            try {
+                a.collectCoins();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+        Thread collectThread = new Thread(runner);
+        collectThread.start();
+        new Thread(() -> {
+            HotKey hotKey = new HotKey(a);
+            hotKey.initHotkey();
+            System.out.println("监听 Start");
+        }, "t2").start();
+
     }
 }
