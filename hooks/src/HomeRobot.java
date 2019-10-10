@@ -4,6 +4,8 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
 
@@ -12,6 +14,8 @@ public class HomeRobot extends JFrame {
     private final Object lock = new Object();
 
     private boolean pause = false;
+
+    private int zeroRefresh = 0;//0点刷新
 
     /**
      * 调用该方法实现线程的暂停
@@ -59,6 +63,19 @@ public class HomeRobot extends JFrame {
 
     void releaseMouse(Robot robot) {
         robot.mouseRelease(InputEvent.BUTTON1_MASK);
+    }
+
+    void relogin(Robot robot, Properties p) {
+        mouseMove(robot, 678, 83);
+        robot.delay(100);
+        mousePress(robot);
+        mouseMove(robot, 805, 784);
+        robot.delay(100);
+        mousePress(robot);
+        robot.delay(3000);
+        mouseMove(robot, Integer.parseInt(p.getProperty("LoginX")), Integer.parseInt(p.getProperty("LoginY")));
+        robot.delay(100);
+        mousePress(robot);
     }
 
     void collectCoins() throws Exception {
@@ -135,16 +152,17 @@ public class HomeRobot extends JFrame {
             robot.delay(3000);
             //如果火车来了，并且循环结束，那就退出登录然后重新登录
             if (comeFlag == 1) {
-                mouseMove(robot, 678, 83);
-                robot.delay(100);
-                mousePress(robot);
-                mouseMove(robot, 805, 784);
-                robot.delay(100);
-                mousePress(robot);
-                robot.delay(3000);
-                mouseMove(robot, Integer.parseInt(p.getProperty("LoginX")), Integer.parseInt(p.getProperty("LoginY")));
-                robot.delay(100);
-                mousePress(robot);
+                relogin(robot, p);
+            }
+            //如果已经12点了。那就重新登录。这个只会执行一次
+            if(zeroRefresh == 0) {
+                Date date = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("HH");
+                String hour = sdf.format(date);
+                if (Integer.parseInt(hour) == 0) {
+                    relogin(robot, p);
+                    zeroRefresh = 1;
+                }
             }
         }
     }
@@ -152,7 +170,6 @@ public class HomeRobot extends JFrame {
     public void stopKeyPressed(KeyEvent e) {
         if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_C) {//同时按下ctrl+c
         }
-
     }
 
     public static void main(String[] args) {
