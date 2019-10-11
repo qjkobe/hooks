@@ -78,6 +78,28 @@ public class HomeRobot extends JFrame {
         mousePress(robot);
     }
 
+    void switchNetwork(Robot robot, Properties p) {
+        mouseMove(robot, Integer.parseInt(p.getProperty("PanelX")), Integer.parseInt(p.getProperty("PanelY")));
+        robot.delay(100);
+        mousePress(robot);
+        robot.delay(1000);
+
+        mouseMove(robot, Integer.parseInt(p.getProperty("NetWorkX")), Integer.parseInt(p.getProperty("NetWorkY")));
+        robot.delay(100);
+        mousePress(robot);
+        //时间太短不算掉线
+        robot.delay(20 * 1000);
+        mousePress(robot);
+
+        robot.delay(2000);
+        //点击屏幕中间收金币触发重连
+        mouseMove(robot, Integer.parseInt(p.getProperty("x5")), Integer.parseInt(p.getProperty("y5")));
+        robot.delay(100);
+        mousePress(robot);
+        //等待5s重连
+        robot.delay(5*1000);
+    }
+
     void collectCoins() throws Exception {
         InputStream inputStream = RobotExp.class.getClassLoader().getResourceAsStream("HomeConfig.properties");
         Properties p = new Properties();
@@ -99,7 +121,6 @@ public class HomeRobot extends JFrame {
             mousePress(robot);
             robot.delay(100);
             //火车操作总共3*36*4次
-            //火车操作会伴随着收金币。所以上面不需要了。
             //现在改为只收取橙色的。所以只收取右上角四个。循环要修改的就是最内层循环。j只能为2 3 5 6
             for (int i = 0; i < 3; i++) {
                 int trainX = Integer.parseInt(p.getProperty("trainX" + (i + 1)));
@@ -118,8 +139,8 @@ public class HomeRobot extends JFrame {
                 if (!pixel.equals(orange)) {
                     continue;
                 }
-                //橙色其实最多只来3个
-                for (int k = 0; k < 3; k++) {
+                //橙色其实最多只来3个..也可能只有2个
+                for (int k = 0; k < 2; k++) {
                     for (int j = 0; j < 9; j++) {
                         int temp = j + 1;
                         if (temp != 2 && temp != 3 && temp != 5 && temp != 6 && temp != 9) {
@@ -150,17 +171,17 @@ public class HomeRobot extends JFrame {
             }
             //5s收一次
             robot.delay(3000);
-            //如果火车来了，并且循环结束，那就退出登录然后重新登录
+            //如果火车来了，并且循环结束，那就网络切换
             if (comeFlag == 1) {
-                relogin(robot, p);
+                switchNetwork(robot, p);
             }
-            //如果已经12点了。那就重新登录。这个只会执行一次
+            //如果已经12点了。那就网络切换。这个只会执行一次
             if(zeroRefresh == 0) {
                 Date date = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("HH");
                 String hour = sdf.format(date);
                 if (Integer.parseInt(hour) == 0) {
-                    relogin(robot, p);
+                    switchNetwork(robot, p);
                     zeroRefresh = 1;
                 }
             }
