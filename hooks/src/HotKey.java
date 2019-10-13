@@ -6,6 +6,7 @@ public class HotKey implements HotkeyListener {
     static final int KEY_1 = 88;
     static final int KEY_2 = 89;
     static final int KEY_3 = 90;
+    static final int KEY_4 = 91;
 
     private HomeRobot a;
 
@@ -31,6 +32,14 @@ public class HotKey implements HotkeyListener {
             case KEY_3:
                 System.out.println("系统退出..........");
                 destroy();
+                break;
+            case KEY_4:
+                a.switchMode();
+                if (a.mode.equals("collectTrains")) {
+                    System.out.println("收集货物ing..........");
+                }else {
+                    System.out.println("采集金币ing..........");
+                }
         }
 
     }
@@ -43,6 +52,7 @@ public class HotKey implements HotkeyListener {
         JIntellitype.getInstance().unregisterHotKey(KEY_1);
         JIntellitype.getInstance().unregisterHotKey(KEY_2);
         JIntellitype.getInstance().unregisterHotKey(KEY_3);
+        JIntellitype.getInstance().unregisterHotKey(KEY_4);
         System.exit(0);
     }
 
@@ -54,6 +64,7 @@ public class HotKey implements HotkeyListener {
         JIntellitype.getInstance().registerHotKey(KEY_1, JIntellitype.MOD_CONTROL, (int) 'C');
         JIntellitype.getInstance().registerHotKey(KEY_2, JIntellitype.MOD_CONTROL, (int) 'Z');
         JIntellitype.getInstance().registerHotKey(KEY_3, JIntellitype.MOD_CONTROL, (int) 'I');
+        JIntellitype.getInstance().registerHotKey(KEY_4, JIntellitype.MOD_CONTROL, (int) 'M');
 
         JIntellitype.getInstance().addHotKeyListener(this);
     }

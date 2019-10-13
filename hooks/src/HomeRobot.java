@@ -17,6 +17,8 @@ public class HomeRobot extends JFrame {
 
     private int zeroRefresh = 0;//0点刷新
 
+    public String mode = "collectTrains"; //collectCoins
+
     /**
      * 调用该方法实现线程的暂停
      */
@@ -100,6 +102,30 @@ public class HomeRobot extends JFrame {
         robot.delay(5*1000);
     }
 
+    void collectCoinsMode(Robot robot, Properties p) {
+        for (int i = 0; i < 9; i++) {
+            int coinX = Integer.parseInt(p.getProperty("x" + (i + 1)));
+            int coinY = Integer.parseInt(p.getProperty("y" + (i + 1)));
+            mouseMove(robot, coinX, coinY);
+            robot.delay(100);
+            mousePress(robot);
+            robot.delay(100);
+            while (pause) {
+                onPause();
+            }
+        }
+        robot.delay(5000);
+    }
+
+    void switchMode() {
+        if (mode.equals("collectCoins")) {
+            mode = "collectTrains";
+        } else {
+            mode = "collectCoins";
+        }
+    }
+
+
     void collectCoins() throws Exception {
         InputStream inputStream = RobotExp.class.getClassLoader().getResourceAsStream("HomeConfig.properties");
         Properties p = new Properties();
@@ -111,6 +137,10 @@ public class HomeRobot extends JFrame {
         Robot robot = new Robot();
         robot.delay(3000);
         while (true) {
+            if (mode.equals("collectCoins")) {
+                collectCoinsMode(robot, p);
+                continue;
+            }
             while (pause) {
                 onPause();
             }
@@ -197,6 +227,7 @@ public class HomeRobot extends JFrame {
         System.out.println("Ctrl+C:暂停");
         System.out.println("Ctrl+Z:继续");
         System.out.println("Ctrl+I:关闭");
+        System.out.println("Ctrl+M:收集金币模式。再按可以切换回来");
         HomeRobot a = new HomeRobot();
         Runnable runner = () -> {
             try {
