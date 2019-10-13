@@ -82,7 +82,7 @@ public class HomeRobot extends JFrame {
         mouseMove(robot, Integer.parseInt(p.getProperty("PanelX")), Integer.parseInt(p.getProperty("PanelY")));
         robot.delay(100);
         mousePress(robot);
-        robot.delay(1000);
+        robot.delay(4000);
 
         mouseMove(robot, Integer.parseInt(p.getProperty("NetWorkX")), Integer.parseInt(p.getProperty("NetWorkY")));
         robot.delay(100);
@@ -91,7 +91,7 @@ public class HomeRobot extends JFrame {
         robot.delay(20 * 1000);
         mousePress(robot);
 
-        robot.delay(2000);
+        robot.delay(5000);
         //点击屏幕中间收金币触发重连
         mouseMove(robot, Integer.parseInt(p.getProperty("x5")), Integer.parseInt(p.getProperty("y5")));
         robot.delay(100);
